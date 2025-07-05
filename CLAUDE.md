@@ -54,6 +54,48 @@ Place custom command files in `.claude/commands/` directory:
 - **Maintain organized file structure**
 - **Check official documentation for latest practices**
 - **Request web search when encountering unknowns**
+- **Keep only working code - remove failed attempts**
+
+### Code Cleanup During Debugging
+<debugging_cleanup>
+1. **When troubleshooting/debugging:**
+   - Delete failed attempts, don't comment them out
+   - Keep ONLY the working solution
+   - Remove console.log and debug statements
+   - Clean up any temporary test code
+
+2. **Exception: Preserve existing code when:**
+   - It was already in the codebase before debugging
+   - It serves a different purpose
+   - It's part of legacy functionality
+   
+3. **Example - WRONG approach:**
+   ```javascript
+   // Attempt 1 - didn't work
+   // function calculateTotal(items) {
+   //   return items.reduce((a, b) => a + b);
+   // }
+   
+   // Attempt 2 - also failed
+   // function calculateTotal(items) {
+   //   let sum = 0;
+   //   items.forEach(item => sum += item);
+   //   return sum;
+   // }
+   
+   // This one works!
+   function calculateTotal(items) {
+     return items.reduce((sum, item) => sum + item.price, 0);
+   }
+   ```
+   
+4. **Example - CORRECT approach:**
+   ```javascript
+   function calculateTotal(items) {
+     return items.reduce((sum, item) => sum + item.price, 0);
+   }
+   ```
+</debugging_cleanup>
 
 ### When Stuck or Uncertain
 - If encountering an error you can't resolve, ask user to search for solution
@@ -380,6 +422,13 @@ Based on community feedback, Claude Code automatically adds attribution which ma
 - Don't guess with outdated knowledge
 - Example: "Could you check the React 19 docs for the latest hooks API?"
 - Always mention specific version numbers when asking
+
+## Code Cleanliness
+- Remove ALL failed debugging attempts
+- No commented-out code from troubleshooting
+- Keep only the working solution
+- Delete temporary variables and console.logs
+- If trying multiple approaches, keep ONLY what works
 ```
 
 ### Example Organization Section
@@ -447,6 +496,9 @@ Claude Code should maintain a clean, organized project:
    - Move files to appropriate folders
    - Update documentation links
    - Commit all changes
+   - **Remove commented-out failed attempts**
+   - **Delete duplicate function versions**
+   - **Keep only the working solution**
    ```
 
 3. **CLAUDE.md Documentation Index**
@@ -621,6 +673,21 @@ Before submitting code:
 6. **Double-check Claude's completion claims**
 7. **Ensure commits use proper Git identity**
 8. **Remove any AI attribution from commits**
+9. **Clean up all debugging artifacts**
+10. **Ensure only working code remains**
+
+## Debugging Code Management
+<debug_rules>
+When debugging and trying multiple solutions:
+1. DELETE failed attempts - don't comment them out
+2. Remove ALL debugging artifacts:
+   - console.log statements
+   - Temporary test variables
+   - Failed function versions
+   - Commented-out code blocks
+3. Keep ONLY the final working solution
+4. Exception: Preserve pre-existing code that serves other purposes
+</debug_rules>
 
 ## Task Tracking Template
 Create a `todo.md` file for every session:
@@ -662,6 +729,9 @@ Update this file as you work and have Claude reference it frequently.
 - **Mix different file types in same directory**
 - **Add Claude co-author attribution to commits**
 - **Include AI-generated markers in commit messages**
+- **Keep failed code attempts as comments**
+- **Leave multiple versions of the same function**
+- **Accumulate debugging artifacts in the code**
 
 ## References
 - [Claude Code Documentation](https://docs.anthropic.com/claude-code)
