@@ -52,6 +52,14 @@ Place custom command files in `.claude/commands/` directory:
 - **Document every change with comments**
 - **Commit frequently with descriptive messages**
 - **Maintain organized file structure**
+- **Check official documentation for latest practices**
+- **Request web search when encountering unknowns**
+
+### When Stuck or Uncertain
+- If encountering an error you can't resolve, ask user to search for solution
+- Always request latest documentation for new implementations
+- Suggest checking official docs when using new libraries
+- Example: "I'm not sure about this error. Could you search for '[specific error message]' to find the latest solution?"
 
 ### File Organization
 - Place all logs in `logs/` folder
@@ -59,7 +67,7 @@ Place custom command files in `.claude/commands/` directory:
 - Keep scripts in `scripts/` folder
 - Clean up temporary files after use
 - Remove duplicate or test files
-- Update CLAUDE.md with new file references
+- Update **project** CLAUDE.md with new file references (NOT global ~/.claude/CLAUDE.md)
 
 ### Language-Specific Examples
 
@@ -87,6 +95,12 @@ Place custom command files in `.claude/commands/` directory:
 - `git` - Version control operations
 - `memory` - Persistent context across sessions
 - `postgresql`/`mysql` - Database operations
+
+### Web Search Capability
+Note: Claude Code doesn't have built-in web search. When you need current information:
+- Claude should ask you to search
+- You can install web search MCP servers if available
+- Or manually search and provide the information
 
 ### Installation
 ```bash
@@ -245,7 +259,40 @@ Brief description of project purpose and architecture
 - **Commit after each significant change**
 - **Clean up temporary/debug files**
 - **Organize files into proper directories**
-- **Update CLAUDE.md with new documentation links**
+- **Update project CLAUDE.md with new documentation links (NOT global)**
+- **Request web search for unknown errors**
+- **Ask for official documentation when implementing new features**
+
+## CLAUDE.md File Locations
+<file_locations>
+1. **Global CLAUDE.md** (~/.claude/CLAUDE.md):
+   - Contains universal best practices
+   - Never modify during project work
+   - This is your personal configuration
+   
+2. **Project CLAUDE.md** (./CLAUDE.md or ./.claude/CLAUDE.md):
+   - Project-specific rules and documentation
+   - Update this with new doc links
+   - Add project-specific patterns here
+   - This is what you update during development
+</file_locations>
+
+## Web Search and Documentation
+<documentation_rules>
+1. When encountering unknown errors or issues:
+   - Say: "I'm encountering [specific error]. Could you search for the latest solution?"
+   - Don't guess or use outdated knowledge
+   
+2. Before implementing new libraries or frameworks:
+   - Say: "Before we proceed, could you check the official [library] documentation for the latest best practices?"
+   
+3. When stuck on a problem for more than 2 attempts:
+   - Say: "This approach isn't working. Could you search for alternative solutions to [problem]?"
+   
+4. Always prefer official documentation:
+   - Request: "Please check the official docs for [technology] version [X]"
+   - Don't rely on potentially outdated knowledge
+</documentation_rules>
 
 ## File Management
 <file_organization>
@@ -312,8 +359,9 @@ Brief description of project purpose and architecture
 - **Be explicit about preventing assumptions**
 - **Add rules that persist across conversations**
 - **Include file organization rules**
-- **Link all documentation back to CLAUDE.md**
+- **Link all documentation back to PROJECT CLAUDE.md (not global)**
 - **Explicitly prohibit Claude attribution in commits**
+- **Clarify which CLAUDE.md file to update**
 
 ### Preventing Co-Author Attribution
 Based on community feedback, Claude Code automatically adds attribution which many teams don't want. Add this to your CLAUDE.md:
@@ -325,6 +373,13 @@ Based on community feedback, Claude Code automatically adds attribution which ma
 - Use only the configured Git user identity
 - Professional commit messages without AI attribution
 - Follow conventional commit format (feat:, fix:, etc.)
+
+## Documentation and Research
+- When stuck, ask user to search for solutions
+- Request official docs before implementing new features
+- Don't guess with outdated knowledge
+- Example: "Could you check the React 19 docs for the latest hooks API?"
+- Always mention specific version numbers when asking
 ```
 
 ### Example Organization Section
@@ -334,9 +389,9 @@ Based on community feedback, Claude Code automatically adds attribution which ma
 - Scripts and utilities in scripts/
 - Log files in logs/
 - Clean up temp files after each task
-- Update this file with new doc links
+- Update THIS PROJECT FILE with new doc links
 
-## Documentation Index
+## Documentation Index (UPDATE THIS SECTION)
 - [[docs/README.md]] - Main documentation
 - [[docs/api.md]] - API reference
 - [[docs/contributing.md]] - Contribution guide
@@ -348,6 +403,8 @@ Based on community feedback, Claude Code automatically adds attribution which ma
 - NO Claude attribution in commits
 - NO "Co-Authored-By" lines
 - Clean, professional commit messages only
+
+Note: This is a PROJECT CLAUDE.md - update THIS file, not ~/.claude/CLAUDE.md
 ```
 
 ### Preventing Claude from Forgetting Rules
@@ -400,6 +457,8 @@ Claude Code should maintain a clean, organized project:
    - [[docs/setup-guide.md]] - Setup instructions
    - [[scripts/deploy.sh]] - Deployment script
    - [[scripts/backup.py]] - Backup utility
+   
+   Note: Update THIS project file when adding new docs
    ```
 
 ### Preventing Assumptions
@@ -501,6 +560,28 @@ claude -p "Analyze codebase" --output-format stream-json
 4. **High token usage**: Optimize CLAUDE.md and use headless mode
 5. **Claude claiming completion when tasks remain**: Check todo.md
 6. **Accuracy degradation**: Clear context and start fresh
+7. **Unknown errors**: Request web search for solutions
+8. **Outdated approaches**: Ask for current documentation
+
+### When to Request Web Search
+Claude Code should ask you to search when:
+- Encountering unfamiliar error messages
+- Using a library for the first time
+- Implementing features with new syntax
+- Dealing with version-specific issues
+- Following patterns that seem outdated
+
+Example requests:
+```
+"I'm seeing a TypeError with this new React 19 feature. 
+Could you search for the latest React 19 documentation on this?"
+
+"This webpack configuration isn't working as expected. 
+Could you check if there are breaking changes in webpack 5?"
+
+"I'm not familiar with this error. Could you search for:
+'[exact error message]' to find recent solutions?"
+```
 
 ### Preventing False Completions
 Claude often claims "everything is complete" when tasks remain:
